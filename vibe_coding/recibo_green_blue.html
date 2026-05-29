@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recibo Green & Blue Aquamarine - Nº 0481</title>
+<style>
+  /* =============================================
+     RESET & BASE
+  ============================================= */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    background: #c8c8c8;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  /* =============================================
+     DOCUMENTO PRINCIPAL — tamaño carta horizontal
+     279mm x 216mm aprox → usamos 1050px x 742px
+  ============================================= */
+  .recibo {
+    width: 1050px;
+    min-height: 742px;
+    background: #f4f7f4; /* tono levemente azulado/verdoso como papel offset */
+    border: 1.5px solid #7aabcc;
+    padding: 0;
+    position: relative;
+    box-shadow: 2px 3px 10px rgba(0,0,0,0.25);
+    /* Textura sutil papel */
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(122,171,204,0.04) 28px,
+        rgba(122,171,204,0.04) 29px
+      );
+  }
+
+  /* =============================================
+     INPUT BASE — todos transparentes, sin borde
+  ============================================= */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  input[type="checkbox"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #1a1a1a;
+    padding: 0;
+    line-height: 1;
+  }
+
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus,
+  textarea:focus {
+    background: rgba(122,171,204,0.07);
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* =============================================
+     FILA 1 — CABECERA PRINCIPAL
+  ============================================= */
+  .header {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1.5px solid #7aabcc;
+    padding: 8px 12px 6px 12px;
+    gap: 0;
+  }
+
+  /* --- Logo --- */
+  .logo-block {
+    flex: 0 0 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 12px;
+  }
+
+  .logo-title {
+    font-size: 28px;
+    font-weight: 900;
+    font-family: Arial Black, Arial, sans-serif;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 0px;
+  }
+
+  /* "GREEN" en verde, "&" especial, "BLUE" en azul */
+  .logo-green { color: #5a8a3a; }
+  .logo-amp   {
+    color: #5a8a3a;
+    font-size: 22px;
+    vertical-align: middle;
+  }
+  .logo-blue  { color: #3a6ea8; }
+
+  .logo-aqua {
+    font-size: 13px;
+    letter-spacing: 2.5px;
+    color: #3a6ea8;
+    font-weight: 400;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 1px;
+    text-transform: lowercase;
+  }
+
+  .logo-sub {
+    font-size: 9px;
+    color: #5a8a3a;
+    margin-top: 3px;
+    font-style: italic;
+    letter-spacing: 0.2px;
+  }
+
+  /* --- Servicios y teléfono --- */
+  .servicios-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .servicios-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .servicio-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #3a6ea8;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .servicio-item input[type="checkbox"] {
+    width: 11px;
+    height: 11px;
+    border: 1.5px solid #3a6ea8;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .servicio-item input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: -2px;
+    left: 0px;
+    font-size: 10px;
+    color: #3a6ea8;
+    font-weight: 900;
+  }
+
+  .telefono-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #3a6ea8;
+    font-weight: 600;
+  }
+
+  .whatsapp-icon {
+    font-size: 13px;
+  }
+
+  /* --- Recibo número --- */
+  .recibo-num-block {
+    flex: 0 0 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1.8px solid #7aabcc;
+    padding: 5px 8px;
+    gap: 2px;
+    margin-left: 8px;
+  }
+
+  .recibo-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #3a6ea8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .recibo-num-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .recibo-nro {
+    font-size: 11px;
+    color: #cc0000;
+    font-weight: 700;
+  }
+
+  .recibo-numero {
+    font-size: 26px;
+    font-weight: 900;
+    color: #cc0000;
+    font-family: Arial Black, Arial, sans-serif;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  /* =============================================
+     FILA 2 — FECHAS + SEÑOR + DIRECCIÓN
+  ============================================= */
+  .fila-fechas {
+    display: flex;
+    align-items: center;
+    padding: 5px 12px 4px 12px;
+    border-bottom: 1px solid #7aabcc;
+    gap: 0;
+  }
+
+  /* Columna fecha inicio */
+  .fecha-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    margin-right: 20px;
+  }
+
+  .fecha-label {
+    font-size: 10px;
+    color: #1a1a1a;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+  }
+
+  .fecha-boxes {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+  }
+
+  .fecha-box {
+    width: 30px;
+    height: 20px;
+    border: 1px solid #7aabcc;
+    background: white;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  /* Señor */
+  .senor-group {
+    display: flex;
+    align-items: baseline;
+    flex: 1;
+    gap: 4px;
+    margin-right: 8px;
+  }
+
+  .senor-label {
+    font-size: 11px;
+    color: #1a1a1a;
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .senor-input {
+    border-bottom: 1px solid #7aabcc !important;
+    flex: 1;
+    min-width: 0;
+    font-size: 12px;
+    padding-bottom: 1px;
+  }
+
+  /* Dirección */
+  .dir-group {
+    display: flex;
+    align-items: baseline;
+    flex: 1;
+    gap: 4px;
+    margin-right: 8px;
+  }
+
+  .dir-label {
+    font-size: 11px;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+
+  .dir-input {
+    border-bottom: 1px solid #7aabcc !important;
+    flex: 1;
+    min-width: 0;
+    font-size: 12px;
+    padding-bottom: 1px;
+  }
+
+  /* =============================================
+     FILA 3 — TELÉFONO / CIUDAD / EDAD / PESO / TALLA / PPL
+  ============================================= */
+  .fila-datos {
+    display: flex;
+    align-items: baseline;
+    padding: 4px 12px 4px 12px;
+    border-bottom: 1.5px solid #7aabcc;
+    gap: 0;
+  }
+
+  .dato-group {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+  }
+
+  .dato-label {
+    font-size: 11px;
+    color: #1a1a1a;
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .dato-input {
+    border-bottom: 1px solid #7aabcc !important;
+    font-size: 12px;
+    padding-bottom: 1px;
+  }
+
+  .dato-sep { flex: 1; }
+
+  /* Separadores específicos */
+  .tel-input   { width: 130px; }
+  .ciudad-input { width: 90px; }
+  .edad-input  { width: 40px; }
+  .peso-input  { width: 50px; }
+  .talla-input { width: 50px; }
+  .ppl-input   { width: 40px; }
+
+  /* =============================================
+     TABLA PRINCIPAL — DESCRIPCIÓN
+  ============================================= */
+  .tabla-principal {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: none;
+  }
+
+  .tabla-principal thead tr th {
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #3a6ea8;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 1.5px solid #7aabcc;
+  }
+
+  .th-descripcion {
+    text-align: center;
+    border-right: 1.5px solid #7aabcc;
+  }
+
+  .th-vrtotal {
+    width: 120px;
+    white-space: nowrap;
+  }
+
+  /* Celda descripción grande */
+  .td-descripcion {
+    border-right: 1.5px solid #7aabcc;
+    vertical-align: top;
+    padding: 0;
+  }
+
+  .td-descripcion textarea {
+    width: 100%;
+    height: 200px;
+    padding: 6px 8px;
+    font-size: 12px;
+    color: #1a1a1a;
+    line-height: 1.8;
+  }
+
+  /* Celda VR TOTAL derecha */
+  .td-vrtotal {
+    vertical-align: top;
+    width: 120px;
+    padding: 0;
+  }
+
+  .td-vrtotal textarea {
+    width: 100%;
+    height: 200px;
+    padding: 6px 8px;
+    text-align: right;
+    font-size: 12px;
+  }
+
+  /* =============================================
+     SECCIÓN OBSERVACIONES
+  ============================================= */
+  .observaciones-row {
+    border-top: 1.5px solid #7aabcc;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .obs-label-cell {
+    padding: 6px 10px 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #5a8a3a;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    vertical-align: top;
+    border-right: 1.5px solid #7aabcc;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .obs-label-cell textarea {
+    flex: 1;
+    height: 90px;
+    padding: 2px 0;
+    font-size: 12px;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  .obs-label-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5a8a3a;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+  }
+
+  .obs-total-cell {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+    border-left: none;
+  }
+
+  /* =============================================
+     FILA TOTAL
+  ============================================= */
+  .total-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    border-top: 1.5px solid #7aabcc;
+  }
+
+  .total-label-cell {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1.5px solid #7aabcc;
+    border-left: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+  }
+
+  .total-value-cell {
+    width: 120px;
+    border: 1.5px solid #7aabcc;
+    border-left: none;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .total-signo {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .total-input {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    color: #1a1a1a;
+  }
+
+  /* =============================================
+     FILA FIRMAS
+  ============================================= */
+  .firmas-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 60px 10px 60px;
+    border-top: 1.5px solid #7aabcc;
+    margin-top: 2px;
+  }
+
+  .firma-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 260px;
+  }
+
+  .firma-line {
+    width: 220px;
+    border-bottom: 1.2px solid #1a1a1a;
+    height: 20px;
+  }
+
+  .firma-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #5a8a3a;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* =============================================
+     LAYOUT INTERNO (wrapper tabla+obs+total+firmas)
+  ============================================= */
+  .cuerpo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* =============================================
+     MEDIA PRINT — impresión perfecta
+  ============================================= */
+  @media print {
+    html, body {
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .recibo {
+      box-shadow: none;
+      border: 1.5px solid #7aabcc;
+      width: 277mm;
+      min-height: 190mm;
+      margin: 0;
+      page-break-inside: avoid;
+    }
+
+    @page {
+      size: letter landscape;
+      margin: 5mm;
+    }
+
+    input, textarea {
+      background: transparent !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     RECIBO GREEN & BLUE AQUAMARINE — Nº 0481
+     Réplica exacta del documento físico
+     ============================================================ -->
+<div class="recibo">
+
+  <!-- =========================================================
+       CABECERA
+       ========================================================= -->
+  <div class="header">
+
+    <!-- LOGO -->
+    <div class="logo-block">
+      <div class="logo-title">
+        <span class="logo-green">GREEN</span><span class="logo-amp">&amp;</span><span class="logo-blue">BLUE</span>
+      </div>
+      <div class="logo-aqua">a q u a m a r i n e</div>
+      <div class="logo-sub">Efecto y prevención en la funcionalidad física</div>
+    </div>
+
+    <!-- SERVICIOS + TELÉFONO -->
+    <div class="servicios-block">
+      <div class="servicios-row">
+        <label class="servicio-item">
+          <input type="checkbox" name="servicio" value="rehabilitacion"> REHABILITACIÓN
+        </label>
+        <label class="servicio-item">
+          <input type="checkbox" name="servicio" value="entretenimiento"> ENTRETENIMIENTO
+        </label>
+        <label class="servicio-item">
+          <input type="checkbox" name="servicio" value="masajes"> MASAJES
+        </label>
+        <label class="servicio-item">
+          <input type="checkbox" name="servicio" value="natacion"> NATACIÓN
+        </label>
+      </div>
+      <div class="telefono-row">
+        <span class="whatsapp-icon">&#x1F4F2;</span>
+        <span>318 868 8008 / 310 740 6038</span>
+      </div>
+    </div>
+
+    <!-- NÚMERO DE RECIBO -->
+    <div class="recibo-num-block">
+      <div class="recibo-label">RECIBO</div>
+      <div class="recibo-num-row">
+        <span class="recibo-nro">N&ordm;</span>
+        <span class="recibo-numero">0481</span>
+      </div>
+    </div>
+
+  </div><!-- /header -->
+
+  <!-- =========================================================
+       FILA FECHAS + SEÑOR + DIRECCIÓN
+       ========================================================= -->
+  <div class="fila-fechas">
+
+    <!-- Fecha Inicio -->
+    <div class="fecha-group" style="margin-right:16px;">
+      <div class="fecha-label">Fecha<br>Inicio</div>
+      <div class="fecha-boxes">
+        <input type="text" class="fecha-box" maxlength="2" placeholder="">
+        <input type="text" class="fecha-box" maxlength="2" placeholder="">
+        <input type="text" class="fecha-box" maxlength="4" placeholder="">
+      </div>
+    </div>
+
+    <!-- Fecha Finalización -->
+    <div class="fecha-group" style="margin-right:24px;">
+      <div class="fecha-label">Fecha<br>Finalización</div>
+      <div class="fecha-boxes">
+        <input type="text" class="fecha-box" maxlength="2" placeholder="">
+        <input type="text" class="fecha-box" maxlength="2" placeholder="">
+        <input type="text" class="fecha-box" maxlength="4" placeholder="">
+      </div>
+    </div>
+
+    <!-- Señor(es) -->
+    <div class="senor-group">
+      <span class="senor-label">Señor (es):</span>
+      <input type="text" class="senor-input" style="width:240px;">
+    </div>
+
+    <!-- Dirección -->
+    <div class="dir-group">
+      <span class="dir-label">Dirección:</span>
+      <input type="text" class="dir-input" style="width:200px;">
+    </div>
+
+  </div><!-- /fila-fechas -->
+
+  <!-- =========================================================
+       FILA TELÉFONO / CIUDAD / EDAD / PESO / TALLA / PPL
+       ========================================================= -->
+  <div class="fila-datos">
+
+    <div class="dato-group" style="margin-right:18px;">
+      <span class="dato-label">Teléfono:</span>
+      <input type="text" class="dato-input tel-input">
+    </div>
+
+    <div class="dato-group" style="margin-right:16px;">
+      <span class="dato-label">Ciudad:</span>
+      <input type="text" class="dato-input ciudad-input">
+    </div>
+
+    <div class="dato-group" style="margin-right:14px;">
+      <span class="dato-label">Edad:</span>
+      <input type="text" class="dato-input edad-input">
+    </div>
+
+    <div class="dato-group" style="margin-right:14px;">
+      <span class="dato-label">Peso:</span>
+      <input type="text" class="dato-input peso-input">
+    </div>
+
+    <div class="dato-group" style="margin-right:14px;">
+      <span class="dato-label">Talla:</span>
+      <input type="text" class="dato-input talla-input">
+    </div>
+
+    <div class="dato-group">
+      <span class="dato-label">PPL:</span>
+      <input type="text" class="dato-input ppl-input">
+    </div>
+
+  </div><!-- /fila-datos -->
+
+  <!-- =========================================================
+       TABLA PRINCIPAL — DESCRIPCIÓN / VR. TOTAL
+       ========================================================= -->
+  <div class="cuerpo">
+    <table class="tabla-principal">
+      <thead>
+        <tr>
+          <th class="th-descripcion">DESCRIPCIÓN</th>
+          <th class="th-vrtotal">VR. TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-descripcion">
+            <textarea placeholder=""></textarea>
+          </td>
+          <td class="td-vrtotal">
+            <textarea placeholder=""></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- OBSERVACIONES -->
+    <div class="observaciones-row">
+      <div class="obs-label-cell">
+        <div class="obs-label-text">OBSERVACIONES</div>
+        <textarea placeholder=""></textarea>
+      </div>
+      <div class="obs-total-cell">
+        <!-- vacío, el total va abajo -->
+      </div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="total-row">
+      <div class="total-label-cell">TOTAL</div>
+      <div class="total-value-cell">
+        <span class="total-signo">$</span>
+        <input type="text" class="total-input" placeholder="">
+      </div>
+    </div>
+
+    <!-- FIRMAS -->
+    <div class="firmas-row">
+      <div class="firma-group">
+        <div class="firma-line"></div>
+        <div class="firma-label">FIRMA DEL INSTRUCTOR</div>
+      </div>
+      <div class="firma-group">
+        <div class="firma-line"></div>
+        <div class="firma-label">FIRMA DEL USUARIO</div>
+      </div>
+    </div>
+
+  </div><!-- /cuerpo -->
+
+</div><!-- /recibo -->
+
+<script>
+  /* Autoavanzar entre cajas de fecha al completar */
+  document.querySelectorAll('.fecha-box').forEach(function(box) {
+    box.addEventListener('input', function() {
+      if (this.value.length >= parseInt(this.getAttribute('maxlength'))) {
+        var next = this.nextElementSibling;
+        if (next) next.focus();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
